@@ -1,2 +1,7 @@
-# clothes2wear-app
-CLothes2Wear official mobile application. Launched on 11.05.2025
+# Clothes2Wear-Production
+
+A new Flutter project.
+
+## Getting Started
+
+FlutterFlow projects are built to run on the Flutter _stable_ release.
