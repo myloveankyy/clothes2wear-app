@@ -1,8 +1,11 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'settings_model.dart';
 export 'settings_model.dart';
@@ -52,6 +55,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -76,8 +81,16 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       color: FlutterFlowTheme.of(context).primaryText,
                       size: 24.0,
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
+                    onPressed: () async {
+                      context.pushNamed(
+                        ProfilePageWidget.routeName,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.topToBottom,
+                          ),
+                        },
+                      );
                     },
                   ),
                   Expanded(
@@ -1129,9 +1142,102 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                   children: [
                                                     Expanded(
                                                       child: FFButtonWidget(
-                                                        onPressed: () {
-                                                          print(
-                                                              'Button pressed ...');
+                                                        onPressed: () async {
+                                                          _model.updateProfile =
+                                                              await UserGroup
+                                                                  .changeProfileCall
+                                                                  .call(
+                                                            id: FFAppState()
+                                                                .UserDatabase
+                                                                .userID,
+                                                            firstName: _model
+                                                                .textController1
+                                                                .text,
+                                                            lastName: _model
+                                                                .textController2
+                                                                .text,
+                                                            mobileNumber: int
+                                                                .tryParse(_model
+                                                                    .textController4
+                                                                    .text),
+                                                            whatsAppNumber: int
+                                                                .tryParse(_model
+                                                                    .textController5
+                                                                    .text),
+                                                          );
+
+                                                          if ((_model
+                                                                  .updateProfile
+                                                                  ?.succeeded ??
+                                                              true)) {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              SnackBar(
+                                                                content: Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    UserGroup
+                                                                        .changeProfileCall
+                                                                        .message(
+                                                                      (_model.updateProfile
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ),
+                                                                    'No Message',
+                                                                  ),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                  ),
+                                                                ),
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        4000),
+                                                                backgroundColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .success,
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              SnackBar(
+                                                                content: Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    UserGroup
+                                                                        .changeProfileCall
+                                                                        .message(
+                                                                      (_model.updateProfile
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ),
+                                                                    'No Message',
+                                                                  ),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                  ),
+                                                                ),
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        4000),
+                                                                backgroundColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error,
+                                                              ),
+                                                            );
+                                                          }
+
+                                                          safeSetState(() {});
                                                         },
                                                         text: 'Update profile',
                                                         icon: Icon(

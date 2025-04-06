@@ -2,12 +2,16 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'empty_listview_model.dart';
 export 'empty_listview_model.dart';
 
 class EmptyListviewWidget extends StatefulWidget {
-  const EmptyListviewWidget({super.key});
+  const EmptyListviewWidget({
+    super.key,
+    String? receiverId,
+  }) : this.receiverId = receiverId ?? 'No Receiver ID';
+
+  final String receiverId;
 
   @override
   State<EmptyListviewWidget> createState() => _EmptyListviewWidgetState();
@@ -37,8 +41,6 @@ class _EmptyListviewWidgetState extends State<EmptyListviewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -126,18 +128,25 @@ class _EmptyListviewWidgetState extends State<EmptyListviewWidget> {
             ),
           ],
         ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-          child: Text(
-            valueOrDefault<String>(
-              FFAppState().errorMessage,
-              'Default',
-            ),
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Inter',
-                  letterSpacing: 0.0,
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                valueOrDefault<String>(
+                  widget.receiverId,
+                  'No receiver',
                 ),
-          ),
+                textAlign: TextAlign.center,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
         ),
       ].divide(SizedBox(height: 18.0)),
     );

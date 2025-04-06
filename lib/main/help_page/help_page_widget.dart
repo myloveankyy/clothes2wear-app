@@ -100,16 +100,14 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                   size: 24.0,
                                 ),
                                 onPressed: () async {
-                                  if (Navigator.of(context).canPop()) {
-                                    context.pop();
-                                  }
                                   context.pushNamed(
-                                    HelpPageWidget.routeName,
+                                    ProfilePageWidget.routeName,
                                     extra: <String, dynamic>{
                                       kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
-                                            PageTransitionType.rightToLeft,
+                                            PageTransitionType.topToBottom,
+                                        duration: Duration(milliseconds: 100),
                                       ),
                                     },
                                   );
@@ -371,8 +369,8 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                   kTransitionInfoKey: TransitionInfo(
                                     hasTransition: true,
                                     transitionType:
-                                        PageTransitionType.leftToRight,
-                                    duration: Duration(milliseconds: 200),
+                                        PageTransitionType.bottomToTop,
+                                    duration: Duration(milliseconds: 100),
                                   ),
                                 },
                               );

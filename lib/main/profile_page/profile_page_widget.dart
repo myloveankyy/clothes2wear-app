@@ -536,8 +536,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           kTransitionInfoKey: TransitionInfo(
                                             hasTransition: true,
                                             transitionType:
-                                                PageTransitionType.scale,
-                                            alignment: Alignment.bottomCenter,
+                                                PageTransitionType.bottomToTop,
                                           ),
                                         },
                                       );
@@ -811,9 +810,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                       hasTransition: true,
                                                       transitionType:
                                                           PageTransitionType
-                                                              .leftToRight,
+                                                              .bottomToTop,
                                                       duration: Duration(
-                                                          milliseconds: 200),
+                                                          milliseconds: 100),
                                                     ),
                                                   },
                                                 );
@@ -993,10 +992,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              if (Navigator.of(context)
-                                                  .canPop()) {
-                                                context.pop();
-                                              }
                                               context.pushNamed(
                                                 SettingsWidget.routeName,
                                                 extra: <String, dynamic>{
@@ -1005,11 +1000,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                     hasTransition: true,
                                                     transitionType:
                                                         PageTransitionType
-                                                            .scale,
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    duration: Duration(
-                                                        milliseconds: 500),
+                                                            .bottomToTop,
                                                   ),
                                                 },
                                               );

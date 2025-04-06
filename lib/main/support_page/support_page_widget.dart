@@ -407,7 +407,9 @@ class _SupportPageWidgetState extends State<SupportPageWidget> {
                                       return Container(
                                         width: double.infinity,
                                         height: double.infinity,
-                                        child: EmptyListviewWidget(),
+                                        child: EmptyListviewWidget(
+                                          receiverId: _model.fetchReceiverId!,
+                                        ),
                                       );
                                     }
 

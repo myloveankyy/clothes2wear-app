@@ -193,6 +193,174 @@ class LoginUserCall {
 
 /// End Login Group Code
 
+/// Start User Group Code
+
+class UserGroup {
+  static String getBaseUrl() => 'https://www.clothes2wear.com/';
+  static Map<String, String> headers = {};
+  static ChangeProfileCall changeProfileCall = ChangeProfileCall();
+  static UserDataCall userDataCall = UserDataCall();
+}
+
+class ChangeProfileCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? firstName = '',
+    String? lastName = '',
+    int? mobileNumber,
+    int? whatsAppNumber,
+  }) async {
+    final baseUrl = UserGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "id": "${escapeStringForJson(id)}",
+  "firstName": "${escapeStringForJson(firstName)}",
+  "lastName": "${escapeStringForJson(lastName)}",
+  "mobileNumber": "${mobileNumber}",
+  "whatsAppNumber": "${whatsAppNumber}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Change Profile',
+      apiUrl: '${baseUrl}api/users/update/profile-data',
+      callType: ApiCallType.PATCH,
+      headers: {
+        'Cookie':
+            'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4OTMzMzkxMy05NDBjLTQ2MzItYjcxYi1kYjY2ZjhlNTg1OTkiLCJlbWFpbCI6ImFua3l5LnBhZGhsZWJoYWlAZ21haWwuY29tIiwicm9sZSI6IkJVWUVSIiwiaWF0IjoxNzQzODM5NDE2LCJleHAiOjE3NDUwNDkwMTZ9.Cwnk1Vtye1HOrB3XEn4Bzp1W0qNxPHONeeL9KhIlZ9k',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UserDataCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? data = '',
+  }) async {
+    final baseUrl = UserGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'User Data',
+      apiUrl: '${baseUrl}api/users/get/single-user',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'id': id,
+        'data': data,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<String>? fullName(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].fullName''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? addressLine1(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].addressLine1''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? addressLine2(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].addressLine2''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? city(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].city''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? state(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].state''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? zipCode(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].zipCode''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? country(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].country''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? mobileNumber(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].mobileNumber''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<bool>? isDefault(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.addresses[:].isDefault''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<bool>(x))
+          .withoutNulls
+          .toList();
+  List? addresses(dynamic response) => getJsonField(
+        response,
+        r'''$.user.addresses''',
+        true,
+      ) as List?;
+}
+
+/// End User Group Code
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

@@ -1,4 +1,6 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'settings_widget.dart' show SettingsWidget;
 import 'package:flutter/material.dart';
 
@@ -35,6 +37,8 @@ class SettingsModel extends FlutterFlowModel<SettingsWidget> {
   String? Function(BuildContext, String?)? textController5Validator;
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
+  // Stores action output result for [Backend Call - API (Change Profile)] action in Button widget.
+  ApiCallResponse? updateProfile;
 
   @override
   void initState(BuildContext context) {}
